@@ -1,4 +1,3 @@
-```javascript
 document.addEventListener("DOMContentLoaded", () => {
     /* 1. 虹膜掃描啟動動畫 */
     const bootScreen = document.getElementById("boot-screen");
