@@ -1,4 +1,3 @@
-```css
 @import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@700;900&family=JetBrains+Mono:wght@400;700&family=Noto+Sans+TC:wght@400;500;700&family=Noto+Serif+TC:wght@700;900&display=swap');
 
 :root {
@@ -161,7 +160,7 @@ body {
 
 .hub-header {
     text-align: center;
-    margin-bottom: 1.5rem;
+    margin-bottom: 1.35rem;
 }
 
 .hub-tag {
@@ -188,31 +187,39 @@ body {
     color: var(--text-muted);
 }
 
-/* 液態玻璃動態心電圖區塊 */
-.ecg-glass-box {
-    border-radius: 16px;
-    padding: 1.1rem 1.3rem;
+/* ================= 液態玻璃雙列生理監測區：上列心電圖 ＋ 下列腦波 ================= */
+.biometric-stack {
+    display: flex;
+    flex-direction: column;
+    gap: 0.85rem;
     margin-bottom: 2rem;
 }
 
-.ecg-top-info {
+.bio-glass-box {
+    border-radius: 14px;
+    padding: 0.95rem 1.25rem;
+}
+
+.bio-top-info {
     display: flex;
     justify-content: space-between;
     align-items: center;
     font-family: 'JetBrains Mono', monospace;
     font-size: 0.75rem;
-    margin-bottom: 0.65rem;
+    margin-bottom: 0.55rem;
     flex-wrap: wrap;
     gap: 0.4rem;
 }
 
-.ecg-label { color: #fca5a5; font-weight: bold; }
-.ecg-bpm { color: var(--gold-text); }
-.ecg-bpm strong { color: #ffffff; }
+.bio-label.gold { color: var(--gold-text); font-weight: bold; }
+.bio-label.crimson { color: #fca5a5; font-weight: bold; }
+.bio-stat { color: var(--text-muted); }
+.bio-stat strong { color: #ffffff; }
+.bio-stat.alert strong { color: #f87171; text-shadow: 0 0 8px rgba(248, 113, 113, 0.6); }
 
-.ecg-monitor {
+.wave-monitor {
     width: 100%;
-    height: 95px;
+    height: 76px;
     background: rgba(8, 2, 4, 0.55);
     border-top: 1px solid rgba(212, 175, 55, 0.22);
     border-bottom: 1px solid rgba(212, 175, 55, 0.22);
@@ -220,13 +227,13 @@ body {
     overflow: hidden;
 }
 
-.ecg-svg {
+.wave-svg {
     width: 100%;
     height: 100%;
     display: block;
 }
 
-/* 心電圖動態流光動畫 */
+/* 第一列：心電圖動態流光 */
 .ecg-wave-glow {
     fill: none;
     stroke: #ef4444;
@@ -237,7 +244,7 @@ body {
     filter: blur(3px);
     stroke-dasharray: 600;
     stroke-dashoffset: 600;
-    animation: ecgPulse 3.2s linear infinite;
+    animation: waveFlow 3.2s linear infinite;
 }
 
 .ecg-wave-line {
@@ -248,54 +255,75 @@ body {
     stroke-linejoin: round;
     stroke-dasharray: 600;
     stroke-dashoffset: 600;
-    animation: ecgPulse 3.2s linear infinite;
+    animation: waveFlow 3.2s linear infinite;
 }
 
-@keyframes ecgPulse {
+/* 第二列：腦波與招魔波動高頻動態 */
+.brain-wave-secondary {
+    fill: none;
+    stroke: rgba(243, 210, 136, 0.35);
+    stroke-width: 1.5;
+    stroke-dasharray: 4 4;
+    animation: brainShift 4s linear infinite;
+}
+
+.brain-wave-primary {
+    fill: none;
+    stroke: #f87171;
+    stroke-width: 2.2;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+    filter: drop-shadow(0 0 6px rgba(239, 68, 68, 0.85));
+    stroke-dasharray: 600;
+    stroke-dashoffset: 600;
+    animation: waveFlow 2.1s linear infinite, brainAmplitude 1.6s ease-in-out infinite alternate;
+}
+
+@keyframes waveFlow {
     0% { stroke-dashoffset: 600; }
-    100% { stroke-dashoffset: 0; }
+100% { stroke-dashoffset: 0; }
 }
-
-.ecg-bottom-meta {
-    display: flex;
-    justify-content: space-between;
-    font-family: 'JetBrains Mono', monospace;
-    font-size: 0.72rem;
-    color: var(--text-muted);
-    margin-top: 0.65rem;
-    flex-wrap: wrap;
-    gap: 0.4rem;
+@keyframes brainShift {
+0% { stroke-dashoffset: 0; }
+100% { stroke-dashoffset: 80; }
 }
-
+@keyframes brainAmplitude {
+0% { transform: scaleY(0.85); transform-origin: center; }
+100% { transform: scaleY(1.12); transform-origin: center; }
+}
+.bio-bottom-meta {
+display: flex;
+justify-content: space-between;
+font-family: 'JetBrains Mono', monospace;
+font-size: 0.72rem;
+color: var(--text-muted);
+margin-top: 0.55rem;
+flex-wrap: wrap;
+gap: 0.4rem;
+}
 /* ================= 六大選單：純線條與幾何圖案區分（無厚重方框） ================= */
 .geo-menu-grid {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    position: relative;
+display: grid;
+grid-template-columns: repeat(3, 1fr);
+position: relative;
 }
-
 .geo-btn {
-    background: transparent;
-    border: none;
-    border-right: 1px solid rgba(212, 175, 55, 0.28);
-    border-bottom: 1px solid rgba(212, 175, 55, 0.28);
-    padding: 1.75rem 1rem;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    text-align: center;
-    cursor: pointer;
-    color: #ffffff;
-    position: relative;
-    transition: all 0.3s ease;
+background: transparent;
+border: none;
+border-right: 1px solid rgba(212, 175, 55, 0.28);
+border-bottom: 1px solid rgba(212, 175, 55, 0.28);
+padding: 1.65rem 1rem;
+display: flex;
+flex-direction: column;
+align-items: center;
+text-align: center;
+cursor: pointer;
+color: #ffffff;
+position: relative;
+transition: all 0.3s ease;
 }
-
-.geo-btn:nth-child(3n) {
-    border-right: none;
-}
-.geo-btn:nth-child(n+4) {
-border-bottom: none;
-}
+.geo-btn:nth-child(3n) { border-right: none; }
+.geo-btn:nth-child(n+4) { border-bottom: none; }
 .geo-btn::after {
 content: "+";
 position: absolute;
@@ -308,9 +336,7 @@ opacity: 0.75;
 pointer-events: none;
 }
 .geo-btn:nth-child(3n)::after,
-.geo-btn:nth-child(n+4)::after {
-display: none;
-}
+.geo-btn:nth-child(n+4)::after { display: none; }
 .geo-btn:hover, .geo-btn:active {
 background: radial-gradient(circle at center, rgba(153, 27, 27, 0.28) 0%, transparent 75%);
 }
@@ -318,41 +344,19 @@ background: radial-gradient(circle at center, rgba(153, 27, 27, 0.28) 0%, transp
 width: 54px;
 height: 54px;
 color: var(--gold-text);
-margin-bottom: 0.85rem;
+margin-bottom: 0.8rem;
 transition: transform 0.4s ease, color 0.3s ease;
 }
 .geo-btn:hover .geo-icon {
 transform: scale(1.12) rotate(12deg);
 color: #ffffff;
 }
-.geo-btn.encrypted .geo-icon {
-color: #f87171;
-}
-.geo-btn.encrypted:hover .geo-icon {
-color: #fca5a5;
-}
-.geo-num {
-font-family: 'JetBrains Mono', monospace;
-font-size: 0.7rem;
-letter-spacing: 2px;
-color: var(--gold-text);
-margin-bottom: 0.25rem;
-}
-.geo-btn.encrypted .geo-num {
-color: #fca5a5;
-}
-.geo-title {
-font-family: 'Noto Serif TC', serif;
-font-size: 1.15rem;
-font-weight: 900;
-color: #ffffff;
-letter-spacing: 1px;
-margin-bottom: 0.25rem;
-}
-.geo-sub {
-font-size: 0.78rem;
-color: var(--text-muted);
-}
+.geo-btn.encrypted .geo-icon { color: #f87171; }
+.geo-btn.encrypted:hover .geo-icon { color: #fca5a5; }
+.geo-num { font-family: 'JetBrains Mono', monospace; font-size: 0.7rem; letter-spacing: 2px; color: var(--gold-text); margin-bottom: 0.25rem; }
+.geo-btn.encrypted .geo-num { color: #fca5a5; }
+.geo-title { font-family: 'Noto Serif TC', serif; font-size: 1.15rem; font-weight: 900; color: #ffffff; letter-spacing: 1px; margin-bottom: 0.25rem; }
+.geo-sub { font-size: 0.78rem; color: var(--text-muted); }
 /* ================= 階段三：子分頁閱讀區與返回按鈕 ================= */
 .container { max-width: 960px; width: 100%; margin: 1.5rem auto; padding: 0 1rem; flex: 1; }
 .subpage-topbar { display: flex; justify-content: space-between; align-items: center; margin-bottom: 1.25rem; padding-bottom: 0.75rem; border-bottom: 1px solid var(--gold-border); flex-wrap: wrap; gap: 0.5rem; }
@@ -405,27 +409,17 @@ footer { text-align: center; padding: 1.3rem 1rem; color: #e2d5d8; font-size: 0.
 @media (max-width: 640px) {
 .system-top-bar { flex-direction: column; align-items: flex-start; font-size: 0.7rem; padding: 0.5rem 0.9rem; }
 .hub-header h1 { font-size: 1.48rem; }
-.ecg-monitor { height: 78px; }
-.geo-menu-grid {
-grid-template-columns: repeat(2, 1fr);
-}
+.wave-monitor { height: 64px; }
+.geo-menu-grid { grid-template-columns: repeat(2, 1fr); }
 .geo-btn {
 padding: 1.35rem 0.65rem;
 border-right: 1px solid rgba(212, 175, 55, 0.28);
 border-bottom: 1px solid rgba(212, 175, 55, 0.28);
 }
-.geo-btn:nth-child(3n) {
-border-right: 1px solid rgba(212, 175, 55, 0.28);
-}
-.geo-btn:nth-child(2n) {
-border-right: none;
-}
-.geo-btn:nth-child(n+4) {
-border-bottom: 1px solid rgba(212, 175, 55, 0.28);
-}
-.geo-btn:nth-child(n+5) {
-border-bottom: none;
-}
+.geo-btn:nth-child(3n) { border-right: 1px solid rgba(212, 175, 55, 0.28); }
+.geo-btn:nth-child(2n) { border-right: none; }
+.geo-btn:nth-child(n+4) { border-bottom: 1px solid rgba(212, 175, 55, 0.28); }
+.geo-btn:nth-child(n+5) { border-bottom: none; }
 .geo-btn::after { display: none; }
 .grid-2 { grid-template-columns: 1fr; gap: 1rem; }
 .btn-group, .chat-controls { flex-direction: column; }
