@@ -426,3 +426,14 @@ border-bottom: 1px solid rgba(212, 175, 55, 0.28);
 .btn-group, .chat-controls { flex-direction: column; }
 .btn-group .action-btn, .chat-controls select, .chat-controls input, .chat-controls .action-btn { width: 100%; text-align: center; }
 }
+/* 恢復神明終端流金漸層標題與光暈 */
+.hub-header h1,
+.section-header h2,
+.boot-title {
+    background: linear-gradient(135deg, #fff5d6 0%, #f3d285 35%, #d4af37 70%, #b8860b 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    color: #e6c27a;
+    text-shadow: 0 0 24px rgba(230, 194, 122, 0.35);
+    filter: drop-shadow(0 2px 10px rgba(212, 175, 55, 0.25));
+}
