@@ -1,4 +1,6 @@
+```javascript
 document.addEventListener("DOMContentLoaded", () => {
+    /* 1. 虹膜掃描啟動動畫 */
     const bootScreen = document.getElementById("boot-screen");
     const irisScanner = document.querySelector(".iris-scanner");
     const bootSubText = document.getElementById("boot-sub-text");
@@ -36,20 +38,19 @@ document.addEventListener("DOMContentLoaded", () => {
         }
     }
 
-    const navButtons = document.querySelectorAll(".nav-btn");
-    const pages = document.querySelectorAll(".page-section");
+    /* 2. 獨立主控台（HUB）與六大幾何分頁切換邏輯 */
+    const systemHub = document.getElementById("system-hub");
+    const detailWorkspace = document.getElementById("detail-workspace");
+    const geoButtons = document.querySelectorAll("[data-open-page]");
     const jumpButtons = document.querySelectorAll("[data-jump]");
+    const backToHubBtn = document.getElementById("back-to-hub-btn");
+    const pages = document.querySelectorAll(".page-section");
 
-    function activatePage(targetId) {
+    function openPageFromHub(targetId) {
+        if (systemHub) systemHub.classList.add("hidden");
+        if (detailWorkspace) detailWorkspace.classList.remove("hidden");
+
         pages.forEach(page => page.classList.remove("active"));
-        navButtons.forEach(btn => {
-            btn.classList.remove("active");
-            if (btn.getAttribute("data-target") === targetId) {
-                btn.classList.add("active");
-                btn.scrollIntoView({ behavior: "smooth", inline: "center", block: "nearest" });
-            }
-        });
-
         const targetPage = document.getElementById(targetId);
         if (targetPage) {
             targetPage.classList.add("active");
@@ -57,18 +58,29 @@ document.addEventListener("DOMContentLoaded", () => {
         window.scrollTo({ top: 0, behavior: "smooth" });
     }
 
-    navButtons.forEach(btn => {
+    function returnToHub() {
+        if (detailWorkspace) detailWorkspace.classList.add("hidden");
+        if (systemHub) systemHub.classList.remove("hidden");
+        window.scrollTo({ top: 0, behavior: "smooth" });
+    }
+
+    geoButtons.forEach(btn => {
         btn.addEventListener("click", () => {
-            activatePage(btn.getAttribute("data-target"));
+            openPageFromHub(btn.getAttribute("data-open-page"));
         });
     });
 
     jumpButtons.forEach(btn => {
         btn.addEventListener("click", () => {
-            activatePage(btn.getAttribute("data-jump"));
+            openPageFromHub(btn.getAttribute("data-jump"));
         });
     });
 
+    if (backToHubBtn) {
+        backToHubBtn.addEventListener("click", returnToHub);
+    }
+
+    /* 3. 系統聊天公屏發送功能 */
     const sendBtn = document.getElementById("send-chat-btn");
     const chatInput = document.getElementById("chat-input");
     const senderSelect = document.getElementById("sender-select");
