@@ -1,0 +1,217 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>【位面系統009】高維觀測終端</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <!-- 液態玻璃光學折射濾鏡 -->
+    <svg style="position: absolute; width: 0; height: 0; pointer-events: none;" aria-hidden="true">
+        <defs>
+            <filter id="liquid-refract" x="-10%" y="-10%" width="120%" height="120%">
+                <feTurbulence type="fractalNoise" baseFrequency="0.015 0.025" numOctaves="2" seed="9" result="noise"/>
+                <feDisplacementMap in="SourceGraphic" in2="noise" scale="6" xChannelSelector="R" yChannelSelector="G"/>
+            </filter>
+        </defs>
+    </svg>
+
+    <!-- 沉浸式啟動畫面：位面系統009 虹膜掃描（高對比純白文字版） -->
+    <div id="boot-screen" class="boot-overlay">
+        <div class="boot-glass-panel">
+            <div class="boot-code">SYSTEM_ID // 009-OMEGA</div>
+            
+            <div class="iris-scanner">
+                <svg viewBox="0 0 200 200" class="iris-svg">
+                    <circle cx="100" cy="100" r="88" class="iris-ring-outer" />
+                    <circle cx="100" cy="100" r="68" class="iris-ring-mid" />
+                    <circle cx="100" cy="100" r="46" class="iris-ring-inner" />
+                    <circle cx="100" cy="100" r="18" class="iris-pupil" />
+                    <line x1="100" y1="4" x2="100" y2="22" class="iris-cross" />
+                    <line x1="100" y1="178" x2="100" y2="196" class="iris-cross" />
+                    <line x1="4" y1="100" x2="22" y2="100" class="iris-cross" />
+                    <line x1="178" y1="100" x2="196" y2="100" class="iris-cross" />
+                </svg>
+                <div class="scan-laser"></div>
+            </div>
+
+            <div class="boot-status-box">
+                <p id="boot-sub-text" class="boot-sub">正在擷取靈魂波動與虹膜特徵...</p>
+                <h2 id="boot-main-text" class="boot-title">身分識別中...</h2>
+                <div class="boot-progress-track">
+                    <div id="boot-progress-bar" class="boot-progress-fill"></div>
+                </div>
+            </div>
+
+            <button id="skip-boot-btn" class="skip-btn" onclick="document.getElementById('boot-screen').style.display='none'">跳過驗證直接進入終端 ⟫</button>
+        </div>
+    </div>
+
+    <!-- 背景緩慢旋轉星軌 SVG -->
+    <div class="celestial-bg">
+        <svg viewBox="0 0 1000 1000" fill="none" xmlns="http://w3.org">
+            <g class="orbit-slow">
+                <circle cx="500" cy="500" r="450" stroke="#e6c27a" stroke-width="1.2" stroke-dasharray="8 8"/>
+                <circle cx="500" cy="500" r="360" stroke="#e6c27a" stroke-width="1.8"/>
+                <circle cx="500" cy="500" r="240" stroke="#e6c27a" stroke-width="1.2" stroke-dasharray="4 12"/>
+                <polygon points="500,50 933,750 67,750" stroke="#e6c27a" stroke-width="1" fill="none"/>
+                <polygon points="500,950 933,250 67,250" stroke="#e6c27a" stroke-width="1" fill="none"/>
+            </g>
+        </svg>
+    </div>
+
+    <!-- 頂部系統狀態列 -->
+    <div class="system-top-bar">
+        <span class="sys-status">SYSTEM 009: ONLINE // 虹膜驗證已通過</span>
+        <span class="sys-warning">[警告] 位面融合進度：持續侵蝕中</span>
+    </div>
+
+    <!-- 標頭區塊 -->
+    <header>
+        <div class="header-frame liquid-glass">
+            <div class="sub-tag">PLANAR SYSTEM 009 // ARCHIVE</div>
+            <h1>【位面縫隙】神明偽裝系統檔案庫</h1>
+            <p>高維位面崩塌入侵 × 神明規訓系統 × 非主角團求生實錄</p>
+        </div>
+    </header>
+
+    <!-- 導覽分頁按鈕列 -->
+    <nav>
+        <button class="nav-btn active" data-target="page-01">01. 世界觀與神明系統</button>
+        <button class="nav-btn" data-target="page-02">02. 雙主角檔案（誘餌組）</button>
+        <button class="nav-btn" data-target="page-03">03. 系統聊天公屏模擬</button>
+        <button class="nav-btn" data-target="page-04">04. 異界怪物圖鑑</button>
+        <button class="nav-btn" data-target="page-05">05. 天道之子觀測名單</button>
+        <button class="nav-btn" data-target="page-06">06. 副本與道具庫</button>
+    </nav>
+
+    <!-- 主內容容器 -->
+    <main class="container">
+
+        <!-- 01. 世界觀與神明系統 -->
+        <section id="page-01" class="page-section active">
+            <div class="section-header">
+                <h2>01 // 世界觀與神明系統法則</h2>
+                <span class="silver-code">FILE_ID: 001-GENESIS</span>
+            </div>
+
+            <div class="grid-2">
+                <div class="card liquid-glass">
+                    <span class="card-tag">高維神明權柄</span>
+                    <h3>末世成因：位面崩塌與融合</h3>
+                    <p>鄰近的高維度位面發生未知崩塌，該位面的神明為了延續自身存在，強行鎖定並試圖與我們的世界融合、重建秩序。</p>
+                    <div class="editable-note">
+                        <strong>[系統補充紀錄]</strong>
+                        <ul class="stat-list">
+                            <li>神明無法直接降臨完整本體，必須透過空間裂縫與副本逐步同化現實法則。</li>
+                            <li>現實世界每天都有部分區域被永久「異化」。</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="card liquid-glass">
+                    <span class="card-tag">神明的精神規訓</span>
+                    <h3>偽裝機制：「覺醒系統」與公屏</h3>
+                    <p>神明讀取人類集體潛意識，捏造出遊戲化的「系統面板、天賦、副本與世界聊天公屏」，讓人類在熟悉的規則中互相競爭、交換情報，在不知不覺中遵從神明制定的生存法則。</p>
+                    <div class="editable-note">
+                        <strong>[公屏社交法則]</strong>
+                        <ul class="stat-list">
+                            <li>每位覺醒者皆可自訂「系統暱稱」在公屏發言，隱藏真實身份。</li>
+                            <li>進入多人副本時則會啟用「組隊代號」，防止現實仇家追殺。</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <div class="card liquid-glass">
+                <h3>快速終端跳轉</h3>
+                <p>已建檔核心生存者：<strong>魚期灩</strong>（公屏：洗洗睡／代號：魚靈）與 <strong>莫鬱</strong>（公屏：一醉解千愁／代號：西卒公羽）。</p>
+                <div class="btn-group">
+                    <button class="action-btn" data-jump="page-02">調閱雙主角三重身份檔案 →</button>
+                    <button class="action-btn" data-jump="page-03">進入系統世界聊天公屏 →</button>
+                </div>
+            </div>
+        </section>
+
+        <!-- 02. 雙主角檔案 -->
+        <section id="page-02" class="page-section">
+            <div class="section-header">
+                <h2>02 // 雙主角檔案（非主角團視角）</h2>
+                <span class="silver-code">FILE_ID: 002-SUBJECTS</span>
+            </div>
+
+            <div class="card liquid-glass">
+                <span class="card-tag">異常體質警告：高危誘餌</span>
+                <h3>共同特殊體質：【高危招魔體質（名稱可自訂）】</h3>
+                <p>在「逸怪」與「墮體」的感知中如同黑夜裡的燈塔，仇恨值永遠優先鎖定兩人。兩人平日習慣在系統公屏潛水吃瓜，進副本則換上馬甲低調刷寶，絕不與「天道之子」正面搶風頭。</p>
+            </div>
+
+            <div class="grid-2">
+                <div class="card liquid-glass">
+                    <span class="card-tag">SUBJECT 01 // 核心角色 A</span>
+                    <h3>本名：魚期灩</h3>
+                    <ul class="stat-list">
+                        <li><span class="stat-label">公屏暱稱：</span><strong>洗洗睡</strong>（系統聊天頻道常用 ID）</li>
+                        <li><span class="stat-label">副本代號：</span><strong>魚靈</strong>（多人副本組隊專用馬甲）</li>
+                        <li><span class="stat-label">初始天賦：</span>[待填寫，建議：隱匿、空間感知、水霧或控制類]</li>
+                        <li><span class="stat-label">性格關鍵字：</span>[待填寫，例如：表面鹹魚想躺平、實則直覺敏銳]</li>
+                        <li><span class="stat-label">生存準則：</span>天塌下來有天道之子頂著，咱們刷完副本就洗洗睡</li>
+                    </ul>
+                </div>
+
+                <div class="card liquid-glass">
+                    <span class="card-tag">SUBJECT 02 // 核心角色 B</span>
+                    <h3>本名：莫鬱</h3>
+                    <ul class="stat-list">
+                        <li><span class="stat-label">公屏暱稱：</span><strong>一醉解千愁</strong>（系統聊天頻道常用 ID）</li>
+                        <li><span class="stat-label">副本代號：</span><strong>西卒公羽</strong>（拆字暗號馬甲，組隊專用）</li>
+                        <li><span class="stat-label">初始天賦：</span>[待填寫，建議：高爆發輸出、刃氣、或狀態轉化類]</li>
+                        <li><span class="stat-label">性格關鍵字：</span>[待填寫，例如：沉靜內斂、護短、關鍵時刻極果斷]</li>
+                        <li><span class="stat-label">生存準則：</span>在神明捏造的規則裡清醒地活著，順便清理送上門的怪</li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+
+        <!-- 03. 系統聊天公屏模擬 -->
+        <section id="page-03" class="page-section">
+            <div class="section-header">
+                <h2>03 // 系統世界聊天公屏（情報與吃瓜頻道）</h2>
+                <span class="silver-code">CHANNEL: GLOBAL_01</span>
+            </div>
+
+            <div class="card liquid-glass">
+                <h3>系統公屏規則說明</h3>
+                <p>神明系統仿照人類網路聊天室建立的全球頻道。覺醒者可透過意念在公屏發布情報、交易物資或打探「天道之子」的動向。公屏僅顯示自訂暱稱，無法直接追蹤現實座標。</p>
+
+                <div id="chat-box" class="chat-window">
+                    <div class="chat-msg sys-msg">
+                        <span class="chat-time">[系統009公告]</span> 警告：東區空間裂縫擴大，三隻【逸怪】已逃逸至現實街區，請附近覺醒者注意規避。
+                    </div>
+                    <div class="chat-msg">
+                        <span class="chat-badge">路人甲</span>
+                        <span class="chat-name">不想進副本：</span>救命！東區這邊怪物怎麼全往同一條巷子衝過去了？那邊有什麼絕世寶物嗎？
+                    </div>
+                    <div class="chat-msg">
+                        <span class="chat-badge">氣運波動</span>
+                        <span class="chat-name">天道之子（匿名小號）：</span>我們小隊正在前往清理，無關人員請勿靠近。
+                    </div>
+                    <div class="chat-msg">
+                        <span class="chat-badge">核心</span>
+                        <span class="chat-name">洗洗睡（魚期灩）：</span>謝邀，人在巷口，剛把怪甩掉，大佬們請慢用，我先撤了。
+                    </div>
+                    <div class="chat-msg">
+                        <span class="chat-badge">核心</span>
+                        <span class="chat-name">一醉解千愁（莫鬱）：</span>東區物資已清點完畢，順便收購一批抗精神污染藥劑，私聊報價。
+                    </div>
+                </div>
+
+                <!-- 互動發送區 -->
+                <div class="chat-controls">
+                    <select id="sender-select">
+                        <option value="洗洗睡（魚期灩）">身份：洗洗睡（魚期灩）</option>
+    <script src="script.js"></script>
+</body>
+</html>
