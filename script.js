@@ -92,9 +92,8 @@ document.addEventListener("DOMContentLoaded", () => {
         {
             id: "page-02",
             encrypted: false,
-            num: "02 // SUBJECTS",
+            num: "02  SUBJECTS",
             title: "雙人檔案",
-            sub: "高危誘餌組三重身份",
             svg: `<circle cx="24" cy="30" r="15" fill="none" stroke="currentColor" stroke-width="1.2"/><circle cx="36" cy="30" r="15" fill="none" stroke="currentColor" stroke-width="1.2"/><line x1="30" y1="8" x2="30" y2="52" stroke="currentColor" stroke-width="0.9" stroke-dasharray="2 3"/>`
         },
         {
